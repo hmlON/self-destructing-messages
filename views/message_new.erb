@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Create new message</title>
+</head>
+<body>
+  <p>Last message is "<%= @messages.last.text %>"</p>
+  <h3>Create new message:</h3>
+  <form action="/message" method="post">
+    <input type="text" name="text">
+    <select name="destruction_option" id="destruction_option">
+      <option value="one_link_visit" selected>Destroy message after the first link visit</option>
+      <option value="one_hour">Destroy after 1 hour</option>
+    </select>
+    <input type="submit" value="Create message">
+  </form>
+</body>
+</html>
