@@ -3,39 +3,43 @@ require 'sinatra/activerecord'
 require_relative 'models/message'
 require 'aes'
 
-get '/' do
-  @messages = Message.all
-  erb :message_new
-end
+class App < Sinatra::Base
 
-post '/message' do
-  message = Message.new(urlsafe: SecureRandom.urlsafe_base64)
-  message.encryption_key = AES.key
-  message.text = AES.encrypt(params['text'], message.encryption_key)
-  if params['destruction_option'] == 'one_link_visit'
-    message.visits_remaining = 1 + 1 # +1 because it shows message right after creation
-  else
-    Thread.new do
-      sleep 1.hour
-      message.delete
-    end
+  get '/' do
+    @messages = Message.all
+    erb :message_new
   end
-  message.save
-  redirect to("/message/#{message.urlsafe}")
-end
 
-get '/message/:urlsafe' do
-  @message = Message.where(urlsafe: params['urlsafe']).last
-  if @message.nil?
-    redirect to('/')
-  else
-    if @message.destroyed_via_link_visits?
-      @message.visits_remaining -= 1
-      @message.save
-      if @message.visits_remaining == 0
-        @message.delete
+  post '/message' do
+    message = Message.new(urlsafe: SecureRandom.urlsafe_base64)
+    message.encryption_key = AES.key
+    message.text = AES.encrypt(params['text'], message.encryption_key)
+    if params['destruction_option'] == 'one_link_visit'
+      message.visits_remaining = 1 + 1 # +1 because it shows message right after creation
+    else
+      Thread.new do
+        sleep 1.hour
+        message.delete
       end
     end
+    message.save
+    redirect to("/message/#{message.urlsafe}")
   end
-  erb :message_show
+
+  get '/message/:urlsafe' do
+    @message = Message.where(urlsafe: params['urlsafe']).last
+    if @message.nil?
+      redirect to('/')
+    else
+      if @message.destroyed_via_link_visits?
+        @message.visits_remaining -= 1
+        @message.save
+        if @message.visits_remaining == 0
+          @message.delete
+        end
+      end
+    end
+    erb :message_show
+  end
+
 end

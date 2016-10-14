@@ -17,6 +17,7 @@ GEM
     concurrent-ruby (1.0.2)
     i18n (0.7.0)
     minitest (5.9.0)
+    pg (0.18.4-x86-mingw32)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -37,6 +38,7 @@ PLATFORMS
 
 DEPENDENCIES
   aes
+  pg
   sinatra
   sinatra-activerecord
 
