@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'sinatra/activerecord'
 require_relative 'models/message'
+require 'aes'
 
 get '/' do
   @messages = Message.all
@@ -8,7 +9,9 @@ get '/' do
 end
 
 post '/message' do
-  message = Message.new(text: params['text'], urlsafe: SecureRandom.urlsafe_base64)
+  message = Message.new(urlsafe: SecureRandom.urlsafe_base64)
+  message.encryption_key = AES.key
+  message.text = AES.encrypt(params['text'], message.encryption_key)
   if params['destruction_option'] == 'one_link_visit'
     message.visits_remaining = 1 + 1 # +1 because it shows message right after creation
   else

@@ -7,7 +7,7 @@
   <title>Message</title>
 </head>
 <body>
-  Your message: <%= @message.text %><br>
+  Your message: <%= AES.decrypt(@message.text, @message.encryption_key) %><br>
   <% if @message.destroyed_via_link_visits? %>
     Visits remaining: <%= @message.visits_remaining %>
   <% else %>

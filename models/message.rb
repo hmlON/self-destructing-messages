@@ -15,4 +15,14 @@ class Message < ActiveRecord::Base
     end
   end
 
+  private
+
+    def encrypt
+
+    end
+
+    def decrypt
+
+    end
+
 end
