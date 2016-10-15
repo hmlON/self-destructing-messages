@@ -6,7 +6,6 @@ require 'aes'
 class App < Sinatra::Base
 
   get '/' do
-    @messages = Message.all
     erb :message_new
   end
 
@@ -15,10 +14,10 @@ class App < Sinatra::Base
     message.encryption_key = AES.key
     message.text = AES.encrypt(params['text'], message.encryption_key)
     if params['destruction_option'] == 'one_link_visit'
-      message.visits_remaining = 1 + 1 # +1 because it shows message right after creation
+      message.visits_remaining = params['destruction_option_value'].to_i + 1 # +1 because it shows message right after creation
     else
       Thread.new do
-        sleep 1.hour
+        sleep params['destruction_option_value'].to_i.hour
         message.delete
       end
     end

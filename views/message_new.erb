@@ -9,11 +9,13 @@
 <body>
   <h3>Create new message:</h3>
   <form action="/message" method="post">
-    <input type="text" name="text">
+    Message: <input type="text" name="text"><br>
+    Destroy message after:
     <select name="destruction_option" id="destruction_option">
-      <option value="one_link_visit" selected>Destroy message after the first link visit</option>
-      <option value="one_hour">Destroy after 1 hour</option>
-    </select>
+      <option value="one_link_visit" selected>n link visit</option>
+      <option value="one_hour">n hours</option>
+    </select><br>
+    n: <input type="number" name="destruction_option_value" min="1" value="1"><br>
     <input type="submit" value="Create message">
   </form>
 </body>
