@@ -13,7 +13,7 @@ class App < Sinatra::Base
     message = Message.new(urlsafe: SecureRandom.urlsafe_base64)
     message.encryption_key = AES.key
     message.text = AES.encrypt(params['text'], message.encryption_key)
-    if params['destruction_option'] == 'one_link_visit'
+    if params['destruction_option'] == 'n_link_visits'
       message.visits_remaining = params['destruction_option_value'].to_i + 1 # +1 because it shows message right after creation
     else
       Thread.new do
