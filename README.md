@@ -9,5 +9,6 @@ User is able to choose destruction option:
 
 Link: https://self-destructing-messages.herokuapp.com/
 
-Web-framework: Sinatra
+Web-framework: Sinatra. 
+
 Database: PostgreSQL
