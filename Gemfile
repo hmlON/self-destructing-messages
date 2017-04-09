@@ -1,9 +1,12 @@
 source "http://rubygems.org"
 
+gem 'rake'
 gem 'sinatra'
+
 gem 'sinatra-activerecord'
-gem 'aes'
 gem 'pg'
+
+gem 'aes'
 
 group :development, :test do
   gem 'rspec'
