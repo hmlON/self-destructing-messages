@@ -12,7 +12,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.4.0)
+    addressable (2.8.1)
+      public_suffix (>= 2.0.2, < 6.0)
     aes (0.5.0)
     arel (7.1.1)
     capybara (2.10.1)
@@ -39,6 +40,7 @@ GEM
     pg (0.18.4)
     pg (0.18.4-x86-mingw32)
     pkg-config (1.1.7)
+    public_suffix (5.0.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
